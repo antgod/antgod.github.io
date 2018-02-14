@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Global</title>
+    <title>Source: plugins/dom.js</title>
     
     
     
@@ -113,226 +113,158 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="global.html">Global</h1>
+        <h1 class="page-title" data-filename="plugins_dom.js.html">Source: plugins/dom.js</h1>
         
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>function $(selector) {
+  return document.querySelector(selector)
+}
 
-<section>
-    
-<header>
-    <h2>
-    
-    </h2>
-    
-</header>  
+function offsetTop(el) {
+  let top = el.offsetTop
+  let parent = el.offsetParent
+  while (parent !== null) {
+    top += parent.offsetTop
+    parent = parent.offsetParent
+  }
+  return top
+}
 
-<article>
-    <div class="container-overview">
-    
-    
-    
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
+function offsetLeft(el) {
+  let left = el.offsetLeft
+  let parent = el.offsetParent
+  while (parent !== null) {
+    left += parent.offsetLeft
+    parent = parent.offsetParent
+  }
+  return left
+}
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
+function addEvent(el, event, handler) {
+  if (!el) return
+  if (el.attachEvent) {
+    el.attachEvent(`on${event}`, handler)
+  } else if (el.addEventListener) {
+    el.addEventListener(event, handler, true)
+  } else {
+    el[`on${event}`] = handler
+  }
+}
 
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getQuery">
-            
-            getQuery<span class="signature">(key)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="plugins_dom.js.html">plugins/dom.js</a>, <a href="plugins_dom.js.html#line64">line 64</a>
-        </div>
-        
-    </div>
+function removeEvent(el, event, handler) {
+  if (!el) return
+  if (el.detachEvent) {
+    el.detachEvent(`on${event}`, handler)
+  } else if (el.removeEventListener) {
+    el.removeEventListener(event, handler, true)
+  } else {
+    el[`on${event}`] = null
+  }
+}
 
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>获取url问号后边的变量相对应的值</p>
-    </div>
-    
+function getBrowserPrefix() {
+  if (typeof window === 'undefined') return ''
+  const styles = window.getComputedStyle(document.documentElement, '')
+  const pre = (Array.prototype.slice
+    .call(styles)
+    .join('')
+    .match(/-(moz|webkit|ms)-/) || (styles.OLink === '' &amp;&amp; ['', 'o'])
+  )[1]
+  if (pre === 'ms') return pre
+  return pre.slice(0, 1).toUpperCase() + pre.slice(1)
+}
 
-    
-    
-    
-    
-    
-        
+/**
+ * 获取url问号后边的变量相对应的值
+ * @param {String} key
+ * @return {String}
+ */
+function getQuery(key) {
+  const reg = new RegExp(`(^|&amp;)${key.toLowerCase()}=([^&amp;]*)(&amp;|$)`, 'i')
+  const r = window.location.search.substr(1).match(reg)
+  return r ? decodeURI(r[2]) : ''
+}
 
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+function debounce(fn, wait = 200) {
+  let timeout
+  let timestamp
+  let lastArgs = []
+  let context = null
 
+  function later() {
+    const last = Date.now() - timestamp
+    if (last &lt; wait &amp;&amp; last > 0) {
+      timeout = setTimeout(later, wait - last)
+    } else {
+      fn.call(context, ...lastArgs)
+      timeout = null
+      lastArgs = []
+    }
+  }
 
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
+  return function debounced(...args) {
+    lastArgs = args
+    context = this
+    timestamp = Date.now()
+    if (!timeout) {
+      setTimeout(later, wait)
+    }
+  }
+}
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
+function safeDecodeURIComponent(str) {
+  try {
+    return decodeURIComponent(str)
+  } catch (e) {
+    return str
+  }
+}
 
-    
-    
+const openWindow = (url = '') => {
+  if (url.indexOf('#') === 0) {
+    location.hash = url
+  } else {
+    window.open(url, '_blank')
+  }
+}
 
-    
+const skipWindow = (url) => {
+  location.href = url
+}
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
+const go = path => history.go(path)
 
+const getCookie = (key) => {
+  const m = new RegExp(`\\b${key}\\=([^;]+)`).exec(document.cookie)
+  return m ? m[1] : ''
+}
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        String
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
+const nextTick = (callback, delay = 0) => window.setTimeout(callback, delay)
 
-    
-    
-    
-</dd>
+export {
+  $,
+  offsetTop,
+  offsetLeft,
+  addEvent,
+  removeEvent,
+  getBrowserPrefix,
+  getQuery,
+  debounce,
+  safeDecodeURIComponent,
+  openWindow,
+  skipWindow,
+  go,
+  getCookie,
+  nextTick,
+}
+</code></pre>
+        </article>
+    </section>
 
-        </dl>
-    
-    
-    
-    
-    
-</article>
-
-</section>  
 
 
 
@@ -341,7 +273,7 @@
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 14 2018 23:26:39 GMT+0800 (CST)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 14 2018 23:26:39 GMT+0800 (CST)
         </footer>
     </div>
 </div>

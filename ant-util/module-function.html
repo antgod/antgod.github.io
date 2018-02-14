@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Global</title>
+    <title>Module: function</title>
     
     
     
@@ -113,7 +113,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="global.html">Global</h1>
+        <h1 class="page-title" data-filename="module-function.html">Module: function</h1>
         
 
 
@@ -122,7 +122,7 @@
     
 <header>
     <h2>
-    
+    function
     </h2>
     
 </header>  
@@ -132,6 +132,8 @@
     
     
     
+        
+            <div class="description"><p>The operator of function include:</p></div>
         
         
         
@@ -154,6 +156,13 @@
     
     
     
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>examples: <a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/functions.test.js">https://github.com/antgod/ant-util/blob/master/__test__/functions.test.js</a></li>
+        </ul>
+    </dd>
     
     
     
@@ -183,14 +192,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="getQuery">
+        <h4 class="name" id="~match">
             
-            getQuery<span class="signature">(key)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+            <span class="type-signature ">inner</span>match<span class="signature">(actions)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{function}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="plugins_dom.js.html">plugins/dom.js</a>, <a href="plugins_dom.js.html#line64">line 64</a>
+            <a href="core_functions.js.html">core/functions.js</a>, <a href="core_functions.js.html#line35">line 35</a>
         </div>
         
     </div>
@@ -201,7 +210,7 @@
     
     
     <div class="description">
-        <p>获取url问号后边的变量相对应的值</p>
+        <p>High-level functions used to get a group of judgment.It can also replace any conditional statement(eg: if/switch)</p>
     </div>
     
 
@@ -232,13 +241,13 @@
 	
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>actions</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Array</span>
 
 
             
@@ -248,7 +257,7 @@
             
             <td class="description last">
                 
-                </td>
+                <p>an json array include two key: condition,action.</p></td>
         </tr>
 	
 	
@@ -309,11 +318,11 @@
             
             <td class="type">
             
-                        String
+                        function
                         
                     
             </td>
-            <td class="description last"></td>
+            <td class="description last">an handle need to pass arguments to every action</td>
         </tr>
     
     </tbody>
@@ -321,6 +330,19 @@
 
     
     
+    
+        <h5>Example</h5>
+        
+
+    
+    <pre class="prettyprint"><code>const mapCreator = code => [
+  { condition: code === 1, action: fns.first },
+  { condition: code === 2, action: fns.second },
+  { condition: code > 1, action: fns.third },
+]
+match(mapCreator(2))(arguments) => [undefined, fns.second(arguments), undefined]</code></pre>
+    
+
     
 </dd>
 

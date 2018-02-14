@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Global</title>
+    <title>Index</title>
     
     
     
@@ -113,226 +113,57 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="global.html">Global</h1>
+        <h1 class="page-title" data-filename="index.html">Index</h1>
         
 
 
-
-<section>
-    
-<header>
-    <h2>
-    
-    </h2>
-    
-</header>  
-
-<article>
-    <div class="container-overview">
-    
-    
-    
-        
-        
-        
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-        
-        
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
-<dt>
-    <div class="nameContainer">
-        <h4 class="name" id="getQuery">
-            
-            getQuery<span class="signature">(key)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
-        </h4>
-    
-        
-        <div class="tag-source">
-            <a href="plugins_dom.js.html">plugins/dom.js</a>, <a href="plugins_dom.js.html#line64">line 64</a>
-        </div>
-        
-    </div>
-
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>获取url问号后边的变量相对应的值</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                </td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
     
 
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Type</th>
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    
-        <tr>
-            
-            <td class="type">
-            
-                        String
-                        
-                    
-            </td>
-            <td class="description last"></td>
-        </tr>
-    
-    </tbody>
-</table>
+    <h3> </h3>
+
+
+
+
+
+
+
 
     
-    
-    
-</dd>
 
-        </dl>
-    
-    
-    
-    
-    
-</article>
 
-</section>  
+
+
+    <section>
+        <article class="readme"><h2>Ant Util</h2><p>a javascript function expressions util including practical function.</p>
+<h3>Features</h3><ul>
+<li>an javascript util handle function,object,array,etc.</li>
+<li>written in function expressions style.</li>
+<li>simple test case ant rich api document.</li>
+</ul>
+<h3>Environment Support</h3><ul>
+<li>Browser: Modern browsers support ecmascript 5</li>
+</ul>
+<h3>Install</h3><pre class="prettyprint source"><code>npm install ant-util --save</code></pre><h3>Usage</h3><pre class="prettyprint source lang-js"><code>import util from 'ant-util'
+const { map } = util
+
+map({ name: 'ant', age: 13 }, (value, key) => `my ${key} is ${value}`)
+
+// => {name: 'my name is ant', age: 'my age is 13'}</code></pre><p>Ant import style manually:</p>
+<pre class="prettyprint source lang-js"><code>import { map } from 'ant-util/lib/object'</code></pre><h3>Development</h3><pre class="prettyprint source"><code>$ git clone https://github.com/antgod/ant-util.git
+$ cd ant-util && npm install</code></pre><h3>API Usage（to be continue）</h3><ul>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/functions.test.js">functions</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/array.test.js">array</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/object.test.js">object</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/string.test.js">string</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/exist.test.js">exist</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/dom.test.js">dom</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/url.test.js">url</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/assert.test.js">assert</a></li>
+<li><a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/if.test.js">if</a></li>
+</ul></article>
+    </section>
+
 
 
 

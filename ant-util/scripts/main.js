@@ -31,6 +31,7 @@ $(function () {
 
     // Show an item related a current documentation automatically
     var filename = $('.page-title').data('filename').replace(/\.[a-z]+$/, '');
+    console.log(filename)
     var $currentItem = $('.navigation .item[data-name*="' + filename + '"]:eq(0)');
 
     if ($currentItem.length) {
@@ -39,7 +40,7 @@ $(function () {
             .prependTo('.navigation .list')
             .show()
             .find('.itemMembers')
-                .show();
+            .show();
     }
 
     // Auto resizing on navigation

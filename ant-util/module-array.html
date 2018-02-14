@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Global</title>
+    <title>Module: array</title>
     
     
     
@@ -113,7 +113,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="global.html">Global</h1>
+        <h1 class="page-title" data-filename="module-array.html">Module: array</h1>
         
 
 
@@ -122,7 +122,7 @@
     
 <header>
     <h2>
-    
+    array
     </h2>
     
 </header>  
@@ -132,6 +132,16 @@
     
     
     
+        
+            <div class="description"><p>The operator of array include:</p>
+<ol>
+<li>Search result of the array by condition like where of sql.</li>
+<li>Rename column's name of item of array.</li>
+<li>Pluck the data form an array.</li>
+<li>Generator the number specified length array fill within fixed value.</li>
+<li>Diff and concat, unique of an array.</li>
+<li>Other useful functions.</li>
+</ol></div>
         
         
         
@@ -154,6 +164,13 @@
     
     
     
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>examples: <a target="_blank" href="https://github.com/antgod/ant-util/blob/master/__test__/array.test.js">https://github.com/antgod/ant-util/blob/master/__test__/array.test.js</a></li>
+        </ul>
+    </dd>
     
     
     
@@ -183,14 +200,14 @@
             
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="getQuery">
+        <h4 class="name" id="~first">
             
-            getQuery<span class="signature">(key)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+            <span class="type-signature ">inner</span>first<span class="signature">(datas)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Object}</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="plugins_dom.js.html">plugins/dom.js</a>, <a href="plugins_dom.js.html#line64">line 64</a>
+            <a href="core_array.js.html">core/array.js</a>, <a href="core_array.js.html#line15">line 15</a>
         </div>
         
     </div>
@@ -201,7 +218,7 @@
     
     
     <div class="description">
-        <p>获取url问号后边的变量相对应的值</p>
+        <p>Return the first element of an array.</p>
     </div>
     
 
@@ -232,13 +249,13 @@
 	
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>datas</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Array</span>
 
 
             
@@ -248,7 +265,7 @@
             
             <td class="description last">
                 
-                </td>
+                <p>an array.</p></td>
         </tr>
 	
 	
@@ -309,11 +326,156 @@
             
             <td class="type">
             
-                        String
+                        Object
                         
                     
             </td>
-            <td class="description last"></td>
+            <td class="description last">first element of the array.</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="~last">
+            
+            <span class="type-signature ">inner</span>last<span class="signature">(datas)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Object}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="core_array.js.html">core/array.js</a>, <a href="core_array.js.html#line23">line 23</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Return the last element of an array.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>datas</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                <p>an array.</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            <td class="description last">last element of the array.</td>
         </tr>
     
     </tbody>

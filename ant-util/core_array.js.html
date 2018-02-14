@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: core/array.js</title>
+    
+    
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true,"includeDate":false},"applicationName":"Demo","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"","description":"","keyword":""},"outputSourceFiles":false,"outputSourcePath":true,"collapseSymbols":false,"inverseNav":false,"protocol":"html://","methodHeadingReturns":true};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Demo</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="module:array">
+            <span class="title">
+                <a href="module-array.html">module:array</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="module:array~first"><a href="module-array.html#~first">first</a></li>
+            
+                <li data-name="module:array~last"><a href="module-array.html#~last">last</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="module:function">
+            <span class="title">
+                <a href="module-function.html">module:function</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="module:function~match"><a href="module-function.html#~match">match</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="module:object">
+            <span class="title">
+                <a href="module-object.html">module:object</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="core_array.js.html">Source: core/array.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>/**
+ * The operator of array include:
+ * 1. Search result of the array by condition like where of sql.
+ * 2. Rename column's name of item of array.
+ * 3. Pluck the data form an array.
+ * 4. Generator the number specified length array fill within fixed value.
+ * 5. Diff and concat, unique of an array.
+ * 6. Other useful functions.
+ * @module array
+ * @see examples: {@link https://github.com/antgod/ant-util/blob/master/__test__/array.test.js}
+ */
+
+import { reduce, identity, pick, unpairs, mapKey } from './object'
+
+ /**
+ * Return the first element of an array.
+ * @function first
+ * @param {Array} datas - an array.
+ * @return {Object} first element of the array.
+ */
+const first = datas => datas[0]
+
+ /**
+ * Return the last element of an array.
+ * @function last
+ * @param {Array} datas - an array.
+ * @return {Object} last element of the array.
+ */
+const last = datas => datas[datas.length - 1]
+
+const max = (data, compare = item => item) => data.reduce((maxer, next) => compare(maxer) > compare(next) ? maxer : next)
+
+const find = (data, need, compare) => data.reduce((last, next) => compare(last) === need(compare(last), compare(next)) ? last : next)
+
+const finder = (data, need) => data.reduce((last, next) => need(last, next) ? last : next)
+
+// 萃取
+const pluck = (datas, propertyName) => datas.map(data => data[propertyName])
+
+// 重命名
+const asname = (table, newNames) => table.map(data => mapKey(data, newNames))
+
+// 查找表格
+const findColumn = (datas, columns) => datas.map(data => pick(data, columns))
+
+const findWhere = (datas, handle) => datas.filter(data => handle(data))
+
+const findEqual = (datas, where) => {
+  const wheres = unpairs(where)
+  return datas.filter(data => wheres.every(([key, value]) => data[key] === value))
+}
+
+// 高级查找
+const sortBy = (datas, fn) => datas.slice(0).sort((d1, d2) => fn(d1) - fn(d2))
+
+const countBy = (datas, fn) => datas.reduce((last, data) => ({ ...last, [`${fn(data)}`]: (last[fn(data)] ? ++last[fn(data)] : 1) }), {})
+
+const indexBy = (datas, key) => datas.reduce((last, data) => ({ ...last, [`${data[key]}`]: [...(last[data[key]] || []), data] }), {})
+
+const groupBy = (datas, fn) => datas.reduce((last, data) => ({ ...last, [`${fn(data)}`]: (last[fn(data)] || []).concat(data) }), {})
+
+// 创建
+const range = (times) => {
+  const ranges = []
+  for (let idx = 0; idx &lt; times; idx++) {
+    ranges.push(idx)
+  }
+  return ranges
+}
+
+const repeat = (times, value) => {
+  return range(times).map(() => value)
+}
+
+const repeatness = (createValue, time) => range(time).map((value, index) => createValue(index))
+
+const iterate = (valueCreator, checker, init) => {
+  const results = []
+  let result = valueCreator(init)
+  while (checker(result)) {
+    results.push(result)
+    result = valueCreator(result)
+  }
+  return results
+}
+
+// 转换
+const toObject = (datas, pluck = value => value) => datas.reduce((last, next) => ({ ...last, [pluck(next)]: next }), {})
+
+// 对比
+const diff = (arr1, arr2) => arr1.length === arr2.length &amp;&amp; arr1.every(value => arr2.includes(value)) &amp;&amp; arr2.every(value => arr1.includes(value))
+
+const subtract = (all, some) => all.reduce((output, name) => (!some.includes(name) ? output.concat(name) : output), [])
+
+// 合并
+const cat = (...args) => {
+  const [head, ...rest] = args
+  return head.slice(0).concat(...rest)
+}
+
+const connect = (head, ...rest) => cat([head], ...rest)
+
+const connectmap = (coll, fun) => connect(...coll.map(fun))
+
+// 去重
+const unique = array => array.reduce((last, arr) => last.includes(arr) ? last : [...last, arr], [])
+
+// const unique = array => [...new Set(array)]
+// const unique = array => array.filter((item, i) => i === array.indexOf(item))
+
+// 合并去重
+const union = (a, b) => unique(cat(a, b))
+
+// 去空
+const compact = datas => datas.filter(data => data)
+
+// 操作
+const insert = (datas, index, item) => datas.slice(0, index).concat(item).concat(datas.slice(index))
+
+const exchange = (arr, start, end) => {
+  const next = arr[end]
+  arr[end] = arr[start]
+  arr[start] = next
+  return arr
+}
+
+// 求值
+const average = array => array.reduce((prev, next) => prev + next) / array.length
+
+const averageDynmic = fun => n => average(connect(...fun(n)))
+
+// 赋值
+const fillnull = (handle, ...defaults) => (...args) => handle(...args.map((arg, i) => arg || defaults[i]))
+
+const defaults = defaultValue => (item, key) => fillnull(identity, defaultValue[key])((item || defaultValue)[key])
+
+// 链式操作
+const chain = actions => datas => reduce(actions, (last, handle, action) => last[action](handle), datas)
+
+export {
+  first,
+  last,
+  max,
+  find,
+  finder,
+
+  pluck,
+  asname,
+  findColumn,
+  findWhere,
+  findEqual,
+
+  sortBy,
+  groupBy,
+  countBy,
+  indexBy,
+
+  range,
+  repeat,
+  repeatness,
+  iterate,
+
+  toObject,
+  diff,
+  subtract,
+
+  cat,
+  connectmap,
+  connect,
+  unique,
+  union,
+  compact,
+
+  insert,
+  exchange,
+
+  average,
+  averageDynmic,
+
+  fillnull,
+  defaults,
+
+  chain,
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 14 2018 23:26:39 GMT+0800 (CST)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
